@@ -23,11 +23,14 @@ def get_nasa_epic(api_key):
         return f"An error occurred: {err}"
 
 
-def get_nasa_epic_image_data(year, month, day, file_name, image_type):
-    # epic_data = get_nasa_epic(api_key)
-    # epic_data_dict = dict(epic_data[0])
-
+def get_nasa_epic_image_data(year, month, day, image_type):
     API_URL = "https://epic.gsfc.nasa.gov/archive/natural/"
+
+    epic_data = get_nasa_epic(api_key)
+    epic_data_dict = dict(epic_data[0])
+    file_name = epic_data_dict["image"]
+
+    #split year, month, and day from Date
 
     try:
         response = requests.get(API_URL+f"{year}/{month}/{day}/{image_type}/{file_name}.{image_type}")
@@ -46,6 +49,3 @@ def get_nasa_epic_image_data(year, month, day, file_name, image_type):
 # print(epic_data_dict["date"])
 # print(epic_data_dict["image"])
 #epic_image = get_nasa_epic_image_data("2015", "10", "31", "png", "epic_1b_20151031074844.png")
-
-# open the epic image in a browser
-#
